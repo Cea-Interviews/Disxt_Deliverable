@@ -10,7 +10,7 @@ FROM base as dev
 ENV NODE_ENV=development
 RUN npm install nodemon
 RUN npm install
-CMD ["npm", "run" , "dev"]
+CMD ["npm", "run" , "start:dev"]
 
 FROM  base as prod
 RUN npm install --only=production
