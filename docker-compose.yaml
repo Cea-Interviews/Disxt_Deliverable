@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  mongodb:
+    image: mongo:latest
+  api:
+    build:
+      context: ""
+    env_file:
+     - ''
+    volumes:
+     - ./api:/api'
+    ports:
+      - "3000: 3000"
