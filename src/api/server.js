@@ -2,8 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const compression = require("compression");
-const logger = require("morgan");
+const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const {logger}= require("../utils");
 
 const server = express();
 server.use(express.json());
@@ -17,7 +18,7 @@ server.use(cookieParser());
 server.use(helmet());
 server.use(express.urlencoded({ extended: true }));
 server.use(compression());
-server.use(logger("dev"));
+server.use(morgan("combined", {stream: logger.stream}));
 
 server.get("/", (req, res) =>
   res.status(200).json({

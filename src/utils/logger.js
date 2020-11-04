@@ -1,7 +1,7 @@
-
 /* eslint-disable no-shadow */
-import path from "path";
-import * as winston from "winston";
+const path = require('path');
+
+const winston = require('winston');
 
 const { format } = winston;
 const {
@@ -9,18 +9,13 @@ const {
 } = format;
 // specify output format
 const myFormat = printf(
-  // tslint:disable-next-line: no-shadowed-variable
-  ({ level, message, timestamp}) => `${timestamp} ${level}: ${message}`,
+  ({ level, message, timestamp }) => `${timestamp} ${level}: ${message}`,
 );
+
 const logger = winston.createLogger({
   // combine both json and timestamp for log output
-  exceptionHandlers: [
-    new winston.transports.File({
-      filename: path.join(`./../logs`, "exceptions.log"),
-    }),
-  ],
   format: combine(
-    label({ label: "category one" }),
+    label({ label: 'category one' }),
     json(),
     timestamp(),
     myFormat,
@@ -28,30 +23,37 @@ const logger = winston.createLogger({
   transports: [
     // all logs info and above should be looged in the info.log
     new winston.transports.File({
-      filename: path.join(`./../logs`, "info.log"),
-      level: "info",
-
+      level: 'info',
+      filename: path.join("../logs", 'info.log'),
     }),
     // all error logs should be logged in the file
     new winston.transports.File({
-      filename: path.join(`./../logs`, "error.log"),
-      level: "error",
-
+      level: 'error',
+      filename: path.join("../logs", 'error.log'),
     }),
     // all http request to be logged in the info
     new winston.transports.Http({
-      host: "localhost",
-      level: "http",
-
+      level: 'http',
+      host: 'localhost',
       port: 8080,
     }),
     // all log with level of warn should be outputed on the console
-    new winston.transports.Console({ level: "warn" })
+    new winston.transports.Console({ level: 'info' }),
   ],
   // all exceptions should be logged in the exceptions.log
-
+  exceptionHandlers: [
+    new winston.transports.File({
+      filename: path.join("../logs", 'exceptions.log'),
+    }),
+  ],
   // loggers should not exit if there are exceptions, only log it
   exitOnError: false,
 });
+logger.stream = {
+  write(message, encoding) {
+    // use the 'info' log level so the output will be picked up by both transports (file and console)
+    logger.info(message);
+  },
+};
 
-export default logger;
+module.exports = logger;
