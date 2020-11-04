@@ -17,4 +17,5 @@ To run this project on your local
 - ORM : Mongoose
 - Validation : Joi Validator
 - Testing : Jest
+- Logger : Winston
 

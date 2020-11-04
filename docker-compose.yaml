@@ -2,12 +2,13 @@ version: "3.7"
 services:
   mongodb:
     image: mongo:latest
-  api:
-    build:
-      context: ""
     env_file:
-     - ''
+      - ./src/api.env
+  api:
+    build: .
+    env_file:
+     - ./src/api.env
     volumes:
-     - ./api:/api'
+     - ./src:/src'
     ports:
       - "3000: 3000"
