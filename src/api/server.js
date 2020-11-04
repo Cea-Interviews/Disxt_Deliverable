@@ -1,44 +1,36 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const compression = require('compression');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-
-const userRouter = require('../users/index');
-
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const compression = require("compression");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const {logger}= require("../utils");
 
 const server = express();
 server.use(express.json());
 server.use(
   cors({
-    origin: [
-      `${process.env.FRONT_URL}`
-],
-    credentials: true
+    origin: [`${process.env.FRONT_URL}`],
+    credentials: true,
   })
 );
 server.use(cookieParser());
 server.use(helmet());
 server.use(express.urlencoded({ extended: true }));
-
 server.use(compression());
-server.use(logger('dev'));
+server.use(morgan("combined", {stream: logger.stream}));
 
-server.get('/', (req, res) =>
+server.get("/", (req, res) =>
   res.status(200).json({
     status: 200,
-    message: 'Dixst Deliverable is up ...'
+    message: "Dixst Deliverable is up ...",
   })
 );
 
-server.use('/api', userRouter);
-server.use('/api', productsRouter);
-
-server.use('*', (req, res) =>
+server.use("*", (req, res) =>
   res.status(404).json({
     status: 404,
-    message: 'No endpoint matches that URL.'
+    message: "No endpoint matches that URL.",
   })
 );
 
