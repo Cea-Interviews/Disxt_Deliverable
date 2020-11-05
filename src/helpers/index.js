@@ -1,9 +1,8 @@
-const Auth = require("./auth")
-const Status = require("./status")
-const Role = require("./role")
+const auth = require("./auth")
+const status = require("./status")
+const role = require("./role")
 module.exports = {
-  GenerateCookie: Auth.GenerateCookie,
-  GenerateToken: Auth.GenerateToken,
-  Status,
-  Role,
+  generateToken: Auth,
+  status,
+  role,
 }

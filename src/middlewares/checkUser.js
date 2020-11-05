@@ -1,9 +1,9 @@
-const Status = require("../helpers/status");
-const UserModel = require("../../users/Models");
+const status = require("../helpers/status");
+const userModel = require("../../users/Models");
 
 checkUser = async (req, res, next) => {
   try {
-    const result = await UserModel.getUserUsername(req.username);
+    const result = await userModel.getUserUsername(req.username);
     req.user = result
     next();
   } catch (error) {

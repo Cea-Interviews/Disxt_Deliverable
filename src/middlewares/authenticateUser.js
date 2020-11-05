@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 const statusHandler = require('../helpers/statusHandler');
 
 dotenv.config();
-const verifyToken = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
   const token = req.cookies.token || '';
   try {
     if (!token) {
       return statusHandler(res, 401, 'You need to Login');
     }
-    const decrypt = await jwt.verify(token, process.env.JWT_SECRET);
+    const decrypt = jwt.verify(token, process.env.JWT_SECRET);
     req.user = {
       id: decrypt.id,
       username: decrypt.username,
@@ -20,4 +20,4 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+module.exports = authenticate

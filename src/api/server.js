@@ -5,6 +5,8 @@ const compression = require("compression");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const {logger}= require("../utils");
+const userRouter = require("../users")
+const productRouter = require("../products")
 
 const server = express();
 server.use(express.json());
@@ -26,7 +28,8 @@ server.get("/", (req, res) =>
     message: "Dixst Deliverable is up ...",
   })
 );
-
+server.use("/users", userRouter)
+server.use("/products", productRouter)
 server.use("*", (req, res) =>
   res.status(404).json({
     status: 404,

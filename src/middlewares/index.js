@@ -1,5 +1,8 @@
-const CheckUsername = require("./checkUser")
+const checkUser = require("./checkUser")
+const authenticate = require("./authenticateUser")
 
 module.exports = {
-  CheckUsername
+  checkUser,
+  authenticate,
+
 }
