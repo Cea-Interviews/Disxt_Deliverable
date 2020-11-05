@@ -4,5 +4,5 @@ const { logger } = require('./src/utils');
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => logger.info(`Server started at port ${PORT}...`));
+server.listen(PORT, () => logger.warn(`Server started at port ${PORT}...`));
 

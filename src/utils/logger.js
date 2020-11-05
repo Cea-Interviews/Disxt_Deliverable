@@ -38,7 +38,7 @@ const logger = winston.createLogger({
       port: 8080,
     }),
     // all log with level of warn should be outputed on the console
-    new winston.transports.Console({ level: 'info' }),
+    new winston.transports.Console({ level: 'warn' }),
   ],
   // all exceptions should be logged in the exceptions.log
   exceptionHandlers: [
