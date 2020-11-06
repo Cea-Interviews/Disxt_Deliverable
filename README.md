@@ -195,7 +195,7 @@ Returns
 
 | Method | Endpoint                 | Access Control      | Description                         |
 | ------ | ------------------------ | ------------------- | ----------------------------------- |
-| GET    | `/products`             | authenticated users    Returns all products |
+| GET    | `/products`             | authenticated users  |  Returns all products |
 | GET    | `/products/:productId` | autthenticated users  | Returns a single product with the created_by option showing for only admins |
 | POST   | `/products`            | only admins | Adds a product  |
 | PUT    | `/products/:productId` | only admins | Update the product information      |
@@ -246,7 +246,7 @@ Returns
 
 ```
 
-### update a product [PUT]
+### Update a product [PUT]
 
 **URL**: _{BaseUrl}/products/5fa536a56e382a039be74e2c_
 
@@ -324,7 +324,7 @@ Returns
       "name": "Amavibes",
       "price": 3000,
       "description": "Amazon campaign for musics",
-      "created_by": { // this field shows whre the logged in user is an admin
+      "created_by": { // this field shows where the logged in user is an admin
         "_id": "5fa51ee1bf11b5001f4c177d",
         "username": "b1"
       }
@@ -334,7 +334,7 @@ Returns
       "name": "Amafly",
       "price": 3000,
       "description": "Amazon campaign for musics",
-      "created_by": {  // this field shows whre the logged in user is an admin
+      "created_by": {  // this field shows where the logged in user is an admin
         "_id": "5fa51ee1bf11b5001f4c177d",
         "username": "b1"
       }
