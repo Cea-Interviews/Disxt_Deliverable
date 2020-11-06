@@ -1,37 +1,58 @@
-const { status, generateToken, role } = require("../../helpers");
+const { status, roles } = require("../../helpers");
+const productsModel = require("../models");
 
 const getAll = async (req, res) => {
   try {
-    const products = await productsModel.getAll();
-    if (products.length > 0) {
+    const products = await productsModel
+      .find()
+      .populate({ path: "created_by", select: "username" })
+      .lean()
+      .exec();
+    if (products.length < 0) {
+      return status(res, 404, "Products Not Found");
+    }
+    if (req.user.role !== roles.Admin) {
+      products.forEach((product) => delete product.created_by);
       return status(res, 200, products);
     }
-    return status(res, 404, "Products Not Found");
+    return status(res, 200, products);
   } catch (error) {
-    return status(res, 500, err.toString());
+    return status(res, 500, error.toString());
   }
 };
 
 const getSingle = async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
-    const product = await productsModel.getSingle(id);
-    if (product) {
+    const _id = req.params.productId;
+    const product = await productsModel
+      .findById(_id)
+      .populate({ path: "created_by", select: "username" })
+      .lean()
+      .exec();
+    if (!product) {
+      return status(res, 404, "Product Not Found");
+    }
+
+    if (req.user.role !== roles.Admin) {
+      delete product.created_by;
       return status(res, 200, products);
     }
-    return status(res, 404, "Product Not Found");
+    return status(res, 200, products);
   } catch (error) {
-    return status(res, 500, err.toString());
+    return status(res, 500, error.toString());
   }
 };
 
 const addProduct = async (req, res) => {
   try {
-    if (req.user.role !== role.Admin) {
+    if (req.user.role !== roles.Admin) {
       return status(res, 401, "Unauthorized");
     }
 
-    const product = await productsModel.addProduct(req.body);
+    const product = await productsModel.create({
+      ...req.body,
+      created_by: req.user.id,
+    });
     return status(res, 201, product);
   } catch (error) {
     return status(res, 500, error.toString());
@@ -40,18 +61,21 @@ const addProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
+    const _id = req.params.productId;
 
-    if (req.user.role !== role.Admin) {
+    if (req.user.role !== roles.Admin) {
       return status(res, 401, "Unauthorized");
     }
-
-    const product = await productsModel.updateProduct(id, req.body);
+    const product = await productsModel.findByIdAndUpdate(
+      _id,
+      { $set: req.body },
+      { new: true }
+    );
     if (product.affected === 0) {
       return status(res, 404, "Product Not Found");
     }
 
-    return status(res, 200, user);
+    return status(res, 200, product);
   } catch (error) {
     return status(res, 500, error.toString());
   }
@@ -59,19 +83,19 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
+    const id = req.params.productId;
 
-    if (req.user.role !== role.Admin) {
+    if (req.user.role !== roles.Admin) {
       return status(res, 401, "Unauthorized");
     }
-    const result = await productsModel.deleteProduct(id);
+    const result = await productsModel.findByIdAndRemove(id);
 
-    if (result.affected === 0) {
+    if (!result) {
       return status(res, 404, "Product Not Found");
     }
     return status(res, 200, "Product deleted");
   } catch (error) {
-    return statusHandler(res, 500, error.toString());
+    return status(res, 500, error.toString());
   }
 };
 

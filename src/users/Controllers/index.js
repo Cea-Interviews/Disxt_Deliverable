@@ -1,16 +1,20 @@
-const { status, generateToken, role } = require("../../helpers");
+const { status, generateToken, roles } = require("../../helpers");
+const userModel = require("../models");
 
-// add comments
-// hashing of password takes place in the model at siognup
 const signup = async (req, res) => {
   try {
     if (!req.user) {
       const { username, password, firstname, lastname, age } = req.body;
-      const user = { username, password, firstname, lastname, age };
-      const { id } = await UserModel.signup(user);
+      const user = await userModel.create({
+        username,
+        password,
+        firstname,
+        lastname,
+        age,
+      });
+      const { id } = user;
       return status(res, 201, { id, username, firstname, lastname, age });
     }
-
     return status(res, 400, "Username Already Exist");
   } catch (error) {
     return status(res, 500, err.toString());
@@ -25,28 +29,32 @@ const login = async (req, res) => {
 
     const { id, username } = req.user;
     const { password } = req.body;
-    const isPassword = await comparePassword(password, req.user.password);
+    const user = new userModel();
+    const isPassword = await userModel.comparePassword(
+      password,
+      req.user.password
+    );
 
     if (!isPassword) {
       return status(res, 400, "Invalid Credential");
     }
-
     await generateToken(res, id, username);
-    return status(res, 2010, { id, username, firstname, lastname, age });
+    return status(res, 200, { id, username });
   } catch (error) {
-    return status(res, 500, err.toString());
+    return status(res, 500, error.toString());
   }
 };
 
 const getUser = async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
-
-    if (id !== req.user.id && req.user.role !== role.Admin) {
+    const id = req.params.id;
+    if (id !== req.user.id && req.user.role !== roles.Admin) {
       return status(res, 401, "Unauthorized");
     }
-
-    const user = await UserModel.getUser(req.user.id);
+    const user = await userModel.findById(id).select("-password");
+    if(!user){
+      return status(res, 404, "User Not Found");
+    }
     return status(res, 200, user);
   } catch (error) {
     return status(res, 500, error.toString());
@@ -55,23 +63,24 @@ const getUser = async (req, res) => {
 
 const updateUserRole = async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     const { role } = req.body;
 
-    if (req.user.role !== role.Admin) {
-      return Status(res, 401, "Unauthorized");
+    if (req.user.role !== roles.Admin) {
+      return status(res, 401, "Unauthorized");
     }
-
-    const user = await UserModel.updateUser(id, { role });
-    return Status(res, 200, user);
+    const user = await userModel
+      .findByIdAndUpdate(id, { $set: { role } }, { new: true })
+      .select("-password");
+    return status(res, 200, user);
   } catch (error) {
-    return Status(res, 500, error.toString());
+    return status(res, 500, error.toString());
   }
 };
 const logout = async (req, res) => {
-  res.clearCookie('token');
-  res.cookie('token', '');
-  return statusHandler(res, 200, 'Logout Successful');
+  res.clearCookie("token");
+  res.cookie("token", "");
+  return status(res, 200, "Logout Successful");
 };
 
 module.exports = {

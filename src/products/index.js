@@ -1,14 +1,44 @@
 const express = require("express");
-const products = require("./ontrollers");
-const validations = require("../middlewares");
-const dotenv = require('dotenv')
-dotenv.config()
+const products = require("./controllers");
+const middlewares = require("../middlewares");
+const dotenv = require("dotenv");
+dotenv.config();
 const router = express.Router();
 
-router.get('/', validations.authenticate, products.getAll())
-router.get('/:productId', validations.authenticate, products.getSingle())
-router.post('/', validations.authenticate, validations.checkUser, products.addProduct())
-router.put('/:productId', validations.authenticate, validations.checkUser, products.updateProduct())
-router.delete('/:productId', validations.authenticate, validations.checkUser, products.deleteProduct())
+router.get(
+  "/",
+  middlewares.authenticate,
+  middlewares.checkUser,
+  products.getAll
+);
+router.get(
+  "/:productId",
+  middlewares.validations.validateId,
+  middlewares.authenticate,
+  middlewares.checkUser,
+  products.getSingle
+);
+router.post(
+  "/",
+  middlewares.validations.validateAddProduct,
+  middlewares.authenticate,
+  middlewares.checkUser,
+  products.addProduct
+);
+router.put(
+  "/:productId",
+  middlewares.validations.validateId,
+  middlewares.validations.validateUpdateProduct,
+  middlewares.authenticate,
+  middlewares.checkUser,
+  products.updateProduct
+);
+router.delete(
+  "/:productId",
+  middlewares.validations.validateId,
+  middlewares.authenticate,
+  middlewares.checkUser,
+  products.deleteProduct
+);
 
-module.exports = router
+module.exports = router;

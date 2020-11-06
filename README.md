@@ -6,6 +6,8 @@ Disxt_ Deliverable is a simple Rest API built using Mongodb, Express and Node th
 To run this project on your local
 
 ```
+curl --request GET \
+  --url http://localhost:3000/ \
 
 ```
 
@@ -13,9 +15,11 @@ To run this project on your local
 
 ## Environment Variables
 
+## Testing
+
 ## Tools Used
 - ORM : Mongoose
 - Validation : Joi Validator
 - Testing : Jest
-- Logger : Winston
+- Logger :
 
