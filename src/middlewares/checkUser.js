@@ -1,13 +1,13 @@
 const status = require("../helpers/status");
-const userModel = require("../../users/Models");
+const userModel = require("../users/models");
 
 checkUser = async (req, res, next) => {
   try {
-    const result = await userModel.getUserUsername(req.username);
+    const result = await userModel.findOne({username: req.body.username || req.user.username});
     req.user = result
     next();
   } catch (error) {
-    return Status(res, 500, error.toString());
+    return status(res, 500, error.toString());
   }
 };
 module.exports = checkUser;

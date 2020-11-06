@@ -1,8 +1,8 @@
-const auth = require("./auth")
-const status = require("./status")
-const role = require("./role")
+const generateToken = require("./auth");
+const status = require("./status");
+const roles = require("./role");
 module.exports = {
-  generateToken: Auth,
+  generateToken,
   status,
-  role,
-}
+  roles,
+};

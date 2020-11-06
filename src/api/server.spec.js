@@ -13,10 +13,5 @@ describe('server.js', () => {
       expect(response.type).toEqual('application/json');
     });
   });
-  describe('/ [GET]', () => {
-    it('returns a 200 status', async() => {
-      const res =await request(server).get('/')
-      expect(res.status).toEqual(200);
-    });
-  });
+ 
 });

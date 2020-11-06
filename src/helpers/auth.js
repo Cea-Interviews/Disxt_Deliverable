@@ -1,15 +1,15 @@
-const jwt  = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
-
-async const generateToken =(res, sub, username) => {
-  const secret = process.env.ACCESS_SECRET
-  const token = jwt.sign({sub, username},  secret , {expiresIn: "15min" });
-  return res.cookie('token', token, {
+dotenv.config();
+const generateToken = async (res, sub, username) => {
+  const secret = process.env.ACCESS_SECRET;
+ const expiration = 604800000
+  const token = jwt.sign({ sub, username }, secret, { expiresIn: "30d" });
+  return res.cookie("token", token, {
     expires: new Date(Date.now() + expiration),
     secure: false,
     httpOnly: true,
   });
-}
-module.export = {
- generateToken
-}
+};
+module.exports = generateToken;
