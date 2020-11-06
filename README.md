@@ -308,7 +308,7 @@ Returns
 
 ### Get all products [GET]
 
-**URL**: _{BaseURl}/products
+**URL**: _{BaseURl}/products_
 
 **Returns**: List of all products
 
