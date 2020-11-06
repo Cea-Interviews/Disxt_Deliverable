@@ -37,7 +37,7 @@ Test Tools
 
 ## API Documentation
 
-The API endpoints for the server has a BaseUrl of ({domain}/api/v1)
+The API endpoints for the server has a BaseUrl of (http://localhost:3000/api/v1)
 
 ## USERS
 ---
