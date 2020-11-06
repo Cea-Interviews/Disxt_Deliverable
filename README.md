@@ -56,7 +56,7 @@ The API endpoints for the server has a BaseUrl of (http://localhost:3000/api/v1)
 
 ```javascript
 {
-  id objectId
+  _id objectId
   username string unique required
   firstname string  required
   lastname string required
@@ -204,7 +204,7 @@ Returns
 
 ```javascript
 {
-  id objectId
+  _id objectId
   name string required
   description string required
   price number required
