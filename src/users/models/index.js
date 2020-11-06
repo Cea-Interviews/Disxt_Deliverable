@@ -4,10 +4,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
+  username: { type: String, required: true , unique: true},
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
-  age: { type: Number },
+  age: { type: Number, required: true },
   role: { type: String, default: "client" },
   password: { type: String, required: true },
 }, { versionKey: false});

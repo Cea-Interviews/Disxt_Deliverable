@@ -1,4 +1,5 @@
 const { status, roles } = require("../../helpers");
+const { populate } = require("../models");
 const productsModel = require("../models");
 
 const getAll = async (req, res) => {
@@ -61,16 +62,16 @@ const addProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const _id = req.params.productId;
+    const id = req.params.productId;
 
     if (req.user.role !== roles.Admin) {
       return status(res, 401, "Unauthorized");
     }
     const product = await productsModel.findByIdAndUpdate(
-      _id,
+      id,
       { $set: req.body },
       { new: true }
-    );
+    ).populate({ path: "created_by", select: "username" });;
     if (product.affected === 0) {
       return status(res, 404, "Product Not Found");
     }
