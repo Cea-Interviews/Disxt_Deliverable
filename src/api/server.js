@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const { logger } = require("../utils");
 const userRouter = require("../users");
 const productRouter = require("../products");
-const db = require("../config/db");
+const {db} = require("../config/db");
 
 db()
 const server = express();

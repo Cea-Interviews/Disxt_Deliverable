@@ -63,14 +63,14 @@ const getUser = async (req, res) => {
 
 const updateUserRole = async (req, res) => {
   try {
-    const _id = req.params.id;
+    const id = req.params.id;
     const { role } = req.body;
 
     if (req.user.role !== roles.Admin) {
       return status(res, 401, "Unauthorized");
     }
     const user = await userModel
-      .findByIdAndUpdate(_id, { $set: { role } }, { new: true })
+      .findByIdAndUpdate(id, { $set: { role } }, { new: true })
       .select("-password");
     return status(res, 200, user);
   } catch (error) {

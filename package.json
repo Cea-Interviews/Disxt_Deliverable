@@ -6,13 +6,17 @@
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon index.js",
-    "test": "jest --detectOpenHandles"
+    "test": "NODE_ENV=test jest --detectOpenHandles --force-exit"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com-basilcea:basilcea/Disxt_Deliverable.git"
   },
   "keywords": [],
+  "jest":{
+    "testEnvironment": "node",
+    "testTimeout": 3000
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

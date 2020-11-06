@@ -1,4 +1,4 @@
-const { status, generateToken, roles } = require("../../helpers");
+const { status, roles } = require("../../helpers");
 const productsModel = require("../models");
 
 const getAll = async (req, res) => {

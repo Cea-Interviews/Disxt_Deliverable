@@ -32,10 +32,11 @@ const updateRoleSchema = joi
   .valid("admin", "client")
   .trim()
   .invalid("");
-
+const id = name.label("id")
 module.exports = {
   registerSchema,
   loginSchema,
   updateRoleSchema,
   name,
+  id
 };
