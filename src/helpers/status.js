@@ -2,10 +2,10 @@ module.exports = (res, status, data) => {
   const statusCodes = {
     200: 'data',
     201: 'data',
-    400: 'message',
-    401: 'message',
-    404: 'message',
-    403: 'message',
+    400: 'error',
+    401: 'error',
+    404: 'error',
+    403: 'error',
     500: 'error',
     409: 'error',
   };

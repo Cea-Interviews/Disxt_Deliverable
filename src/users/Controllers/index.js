@@ -52,6 +52,9 @@ const getUser = async (req, res) => {
       return status(res, 401, "Unauthorized");
     }
     const user = await userModel.findById(id).select("-password");
+    if(!user){
+      return status(res, 404, "User Not Found");
+    }
     return status(res, 200, user);
   } catch (error) {
     return status(res, 500, error.toString());
