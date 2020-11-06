@@ -179,7 +179,9 @@ Returns
 }
 ```
 ### Logout a user [GET]
+**URL**: _{BaseURl}/auth/logout_
 
+Returns
 ```javascript
 {
   "status": 200,
@@ -187,7 +189,7 @@ Returns
 }
 ```
 
-**URL**: _{BaseURl}/auth/logout
+
 
 ## Products
 ---
@@ -346,6 +348,8 @@ Returns
 ### Delete a Product [DELETE]
 
 **URL**: _{BaseUrl}/products/5fa5c57e29e83b05c8b000cb_
+
+Returns
 
 ```javascript
 {
