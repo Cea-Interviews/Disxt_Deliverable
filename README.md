@@ -1,6 +1,6 @@
 # Disxt_Deliverable
 
-Disxt_ Deliverable is a simple Rest API built using Mongodb, Express and Node that implements CRUD tasks on products as well as implements authentication and role-based authentication.
+Disxt_ Deliverable is a simple Rest API built using Mongodb, Express and Node that implements CRUD tasks on products as well as implements authentication and role-based authorization.
 
 ### NPM Scripts
 
