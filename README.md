@@ -47,7 +47,7 @@ The API endpoints for the server has a BaseUrl of (http://localhost:3000/api/v1)
 | ------ | ------------------ | ------------------- | ------------------------------------ |
 | POST   | `/auth/login`      | all users           | Returns info for the logged in user. |
 | POST   | `/auth/signup`   | all users           | Adds a user to the database.         |
-| GET    | `/auth/logout`   | all users |Logs out a user |
+| GET    | `/auth/logout`   | authenticated users |Logs out a user |
 | GET   | `/users/:id` | authenticated users           | Client can view personal info, admins can view info of other users                |
 | PATCH  | `/users/:id`   | admins |   Admins can assign the role of admins to clients                                   |
 
@@ -197,7 +197,7 @@ Returns
 | Method | Endpoint                 | Access Control      | Description                         |
 | ------ | ------------------------ | ------------------- | ----------------------------------- |
 | GET    | `/products`             | authenticated users  |  Returns all products |
-| GET    | `/products/:productId` | autthenticated users  | Returns a single product with the created_by option showing for only admins |
+| GET    | `/products/:productId` | authenticated users  | Returns a single product with the created_by option showing for only admins |
 | POST   | `/products`            | only admins | Adds a product  |
 | PUT    | `/products/:productId` | only admins | Update the product information      |
 | DELETE | `/products/:productId` | only admins | Deletes a product |
