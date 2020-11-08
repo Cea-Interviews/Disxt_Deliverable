@@ -158,7 +158,7 @@ Returns
 
 ### Get a user [GET]
 
-**URL**: _{BaseURl}/users/5fa5c57e29e83b05c8b000cb
+**URL**: _{BaseURl}/users/5fa5c57e29e83b05c8b000cb_
 
 **Returns**: An object with the user details
 
