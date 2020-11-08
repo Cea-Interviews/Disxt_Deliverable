@@ -15,7 +15,7 @@ To run with docker:
 - Clone this repo
 - **docker-compose build** to build an image
 - create a .env file at the root folder of this project and put your environmental variables
-- **docker--compose run** to create a running container with default environment development
+- **docker-compose run** to create a running container with default environment development
 
 ## Technologies
 
