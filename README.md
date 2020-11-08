@@ -33,7 +33,6 @@ Test Tools
 
 - [Jest](https://jestjs.io/) - Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
 - [Supertest](https://github.com/visionmedia/supertest)
--
 
 ## API Documentation
 
