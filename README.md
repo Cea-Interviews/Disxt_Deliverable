@@ -209,7 +209,7 @@ Returns
   name string required
   description string required
   price number required
-  created_by objectId ref required
+  created_by objectId ref("users") required
 }
 ```
 
