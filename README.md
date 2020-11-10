@@ -8,7 +8,7 @@ To get the server running locally:
 
 - Clone this repo
 - **npm install** to install all required dependencies
-- **npm run server** to start the local server
+- **npm run start:dev** to start the local server
 - **npm test** to start server using testing environment
 
 To run with docker:
